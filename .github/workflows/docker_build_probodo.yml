@@ -1,4 +1,4 @@
-name: inglebard/probodo:13
+name: inglebard/probodo
 
 on:
   push:
