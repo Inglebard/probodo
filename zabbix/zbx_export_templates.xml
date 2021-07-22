@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2021-07-21T15:52:54Z</date>
+    <groups>
+        <group>
+            <name>Hypervisors</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template_BorgBackup_Proxmox</template>
+            <name>Template_BorgBackup_Proxmox</name>
+            <groups>
+                <group>
+                    <name>Hypervisors</name>
+                </group>
+            </groups>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Borg backup discovery</name>
+                    <type>TRAP</type>
+                    <key>borg.backup.discovery</key>
+                    <delay>0</delay>
+                    <lifetime>360d</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Borg VM backup {#VMID}</name>
+                            <type>TRAP</type>
+                            <key>borg.backup.vmbackup[{#VMID}]</key>
+                            <delay>0</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Borg</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>({iregexp(error)})=1 or ({iregexp(failed)})=1 or ({iregexp(bad)})=1 or ({iregexp(denied)})=1 or ({iregexp(BORG CREATE code : 0)})=0 or ({iregexp(BORG PRUNE code : 0)})=0</expression>
+                                    <name>VM {#VMID} Borg backup error</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{nodata(93600)}=1</expression>
+                                    <name>VM {#VMID} Borg backup no data</name>
+                                    <priority>WARNING</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Borg VM check {#VMID}</name>
+                            <type>TRAP</type>
+                            <key>borg.backup.vmcheck[{#VMID}]</key>
+                            <delay>0</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Borg</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>({iregexp(error)})=1 or ({iregexp(failed)})=1 or ({iregexp(bad)})=1 or ({iregexp(denied)})=1 or ({iregexp(VM CHECK code : 0)})=0</expression>
+                                    <name>VM {#VMID} Borg check error</name>
+                                    <priority>AVERAGE</priority>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{nodata(93600)}=1</expression>
+                                    <name>VM {#VMID} Borg check no data</name>
+                                    <priority>WARNING</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#VMID}</lld_macro>
+                            <path>$.vmid</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+</zabbix_export>
