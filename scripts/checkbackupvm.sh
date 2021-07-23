@@ -21,7 +21,7 @@ fi
 
 
 # Get last backup 
-LAST_BACKUP=$(borg list "$BACKUP_PATH" --prefix "$VMID" --last 1 --short)
+LAST_BACKUP=$(borg list "$BACKUP_PATH" --prefix "${VMID}_" --last 1 --short)
 BORG_LIST_RETURN="$?"
 
 if [ -z "$LAST_BACKUP" ] || [ $BORG_LIST_RETURN -ne 0 ]
