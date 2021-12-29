@@ -25,8 +25,8 @@ DATEBCK=$(date +"%d-%m-%Y-%H:%M")
 BACKUP_NAME="${VMID}_${DATEBCK}"
 
 
-echo "/usr/bin/vzdump $VMID --compress 0 --mode snapshot --dumpdir /tmp --stdout --quiet | /usr/bin/borg create --stdin-name $BACKUP_NAME.vma --compression=lz4 --stats ssh://$SSH_USER@$SSH_IP:$SSH_PORT/home/$SSH_USER/backupproxmox::$BACKUP_NAME - 2>&1"
-BORG_CREATE_RESULT=$(/usr/bin/vzdump "$VMID" --compress 0 --mode snapshot --dumpdir /tmp --stdout --quiet | /usr/bin/borg create --stdin-name "$BACKUP_NAME.vma" --compression=lz4 --stats "ssh://$SSH_USER@$SSH_IP:$SSH_PORT/home/$SSH_USER/backupproxmox::$BACKUP_NAME" - 2>&1)
+echo "ssh $SSH_USER@$SSH_IP -p $SSH_PORT 'echo ok' && /usr/bin/vzdump $VMID --compress 0 --mode snapshot --dumpdir /tmp --stdout --quiet | /usr/bin/borg create --stdin-name $BACKUP_NAME.vma --compression=lz4 --stats ssh://$SSH_USER@$SSH_IP:$SSH_PORT/home/$SSH_USER/backupproxmox::$BACKUP_NAME - 2>&1"
+BORG_CREATE_RESULT=$(ssh $SSH_USER@$SSH_IP -p $SSH_PORT "echo ok" && /usr/bin/vzdump "$VMID" --compress 0 --mode snapshot --dumpdir /tmp --stdout --quiet | /usr/bin/borg create --stdin-name "$BACKUP_NAME.vma" --compression=lz4 --stats "ssh://$SSH_USER@$SSH_IP:$SSH_PORT/home/$SSH_USER/backupproxmox::$BACKUP_NAME" - 2>&1)
 
 BORG_CREATE_RET="$?"
 
