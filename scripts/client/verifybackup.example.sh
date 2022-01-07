@@ -14,9 +14,9 @@ then
         exit 1
 fi
 
-echo "ssh $SSH_USER@$SSH_IP -p $SSH_PORT /appbin/checkbackupvm.sh $BACKUP_PATH $VMID"
+echo "ssh $SSH_USER@$SSH_IP -p $SSH_PORT /scripts/checkbackupvm.sh $BACKUP_PATH $VMID"
 
-RESULT=$(ssh "$SSH_USER@$SSH_IP" -p "$SSH_PORT" "/appbin/checkbackupvm.sh ${BACKUP_PATH} ${VMID}" 2>&1 )
+RESULT=$(ssh "$SSH_USER@$SSH_IP" -p "$SSH_PORT" "/scripts/checkbackupvm.sh ${BACKUP_PATH} ${VMID}" 2>&1 )
 RET="$?"
 
 read -r -d '' ZABBIX_RESULT << EOM
