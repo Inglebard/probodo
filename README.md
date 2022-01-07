@@ -33,7 +33,9 @@ The image required to be accessible through SSH port and I recommend to bind the
 
 So you just need something like this or use a docker-compose.yml file:
 
-docker run -d  -p [your external port]:22 -v /path/to/persist/homedata/:/home --name probodo inglebard/probodo
+docker run -d  -p [your external port]:22 -v /path/to/persist/users.conf:/config.d/users.conf -v /path/to/persist/20-sshkey.sh:/config.d/20-sshkey.sh -v /path/to/persist/home:/home --name probodo inglebard/probodo
+
+Persist ssh host keys with "docker exec -it probodo bash -c "bash scripts/save_ssh_keys.sh > /config.d/20-sshkey.sh"
 
 After the users created and before create your first backup, you will need to add the ssh key to your clients in /home/[your_user]/.ssh/authorized_keys
 

@@ -6,6 +6,8 @@ sed -i \
 	-e 's/^PermitRootLogin without-password$/PermitRootLogin no/g' \
 	/etc/ssh/sshd_config
 
+rm /etc/ssh/ssh_host_* && dpkg-reconfigure openssh-server
+
 chown root:root /home
 chmod 755 /home
 
