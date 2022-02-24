@@ -16,7 +16,7 @@ fi
 
 echo "ssh $SSH_USER@$SSH_IP -p $SSH_PORT /scripts/checkbackupvm.sh $BACKUP_PATH $VMID"
 
-RESULT=$(ssh "$SSH_USER@$SSH_IP" -p "$SSH_PORT" "/scripts/checkbackupvm.sh ${BACKUP_PATH} ${VMID}" 2>&1 )
+RESULT=$(ssh "$SSH_USER@$SSH_IP" -p "$SSH_PORT" "/scripts/checkbackupvm.sh ${BACKUP_PATH} ${VMID}")
 RET="$?"
 
 read -r -d '' ZABBIX_RESULT << EOM
