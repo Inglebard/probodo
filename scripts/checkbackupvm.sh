@@ -2,6 +2,8 @@
 
 set -o pipefail
 
+export BORG_UNKNOWN_UNENCRYPTED_REPO_ACCESS_IS_OK=yes
+
 BACKUP_PATH=$1
 VMID=$2
 
