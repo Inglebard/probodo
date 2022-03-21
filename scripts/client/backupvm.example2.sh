@@ -2,7 +2,7 @@
 
 set -o pipefail
 
-BORG_RELOCATED_REPO_ACCESS_IS_OK=yes
+export BORG_RELOCATED_REPO_ACCESS_IS_OK=yes
 
 VMID=$1
 SSH_USER="backupuser"
