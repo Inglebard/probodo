@@ -51,6 +51,10 @@ echo "borg prune -v --list --keep-last=3 --keep-monthly=2 ssh://$SSH_USER@$SSH_I
 BORG_PRUNE_RESULT=$(borg prune -v --list --keep-last=3 --keep-monthly=2 "ssh://$SSH_USER@$SSH_IP:$SSH_PORT/home/$SSH_USER/backupproxmox" --prefix="${VMID}_" 2>&1 )
 BORG_PRUNE_RET="$?"
 
+echo "borg compact --cleanup-commits ssh://$SSH_USER@$SSH_IP:$SSH_PORT/home/$SSH_USER/backupproxmox 2>&1"
+BORG_COMPACT_RESULT=$(borg compact --cleanup-commits "ssh://$SSH_USER@$SSH_IP:$SSH_PORT/home/$SSH_USER/backupproxmox" 2>&1 )
+BORG_COMPACT_RET="$?"
+
 
 
 read -r -d '' ZABBIX_RESULT << EOM
@@ -61,6 +65,10 @@ ${BORG_CREATE_RESULT}
 BORG PRUNE code : ${BORG_PRUNE_RET}
 Log :
 ${BORG_PRUNE_RESULT}
+
+BORG COMPACT code : ${BORG_COMPACT_RET}
+Log :
+${BORG_COMPACT_RESULT}
 
 EOM
 
