@@ -1,14 +1,14 @@
 #based on https://github.com/ganehag/pve-vma-docker
-FROM debian:bookworm
+FROM debian:trixie
 
 WORKDIR /tmp
 
 RUN apt-get update && \
   apt-get upgrade -y && \
-  apt-get install -y wget zstd libglib2.0-0 libiscsi7 librbd1 libaio1 lzop glusterfs-common libcurl4-gnutls-dev liburing-dev ssh borgbackup  && \
-  echo "deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription" >> /etc/apt/sources.list && \
-  wget http://download.proxmox.com/debian/proxmox-release-bookworm.gpg    -O /etc/apt/trusted.gpg.d/proxmox-release-bookworm.gpg && \
-  chmod +r /etc/apt/trusted.gpg.d/proxmox-release-bookworm.gpg && \
+  apt-get install -y wget zstd libglib2.0-0 libiscsi7 librbd1 lzop glusterfs-common libcurl4-gnutls-dev liburing-dev ssh borgbackup  && \
+  echo "deb http://download.proxmox.com/debian/pve trixie pve-no-subscription" >> /etc/apt/sources.list && \
+  wget https://enterprise.proxmox.com/debian/proxmox-release-trixie.gpg    -O /etc/apt/trusted.gpg.d/proxmox-release-trixie.gpg && \
+  chmod +r /etc/apt/trusted.gpg.d/proxmox-release-trixie.gpg && \
   apt-get update && \
   apt-get install -y libproxmox-backup-qemu0-dev && \
   apt-get download pve-qemu-kvm && \
