@@ -10,7 +10,7 @@ RUN apt-get update && \
   wget https://enterprise.proxmox.com/debian/proxmox-release-trixie.gpg    -O /etc/apt/trusted.gpg.d/proxmox-release-trixie.gpg && \
   chmod +r /etc/apt/trusted.gpg.d/proxmox-release-trixie.gpg && \
   apt-get update && \
-  apt-get install -y libproxmox-backup-qemu0-dev && \
+  apt-get install -y libnuma1 libproxmox-backup-qemu0-dev && \
   apt-get download pve-qemu-kvm && \
   dpkg --fsys-tarfile ./pve-qemu-kvm*.deb | tar xOf - ./usr/bin/vma > ./vma && \
   chmod u+x ./vma && \
